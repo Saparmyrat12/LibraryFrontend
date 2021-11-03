@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 function LoginForm({loginUser, setUserName}) {
 
@@ -28,10 +28,10 @@ function LoginForm({loginUser, setUserName}) {
     }
 
     return(
-        <div className="col-12 row mx-auto">
-            <div className="col-12 row mx-auto">
-                <p className="h4">Login</p>
-                <div className="col-3 row mx-auto">
+        <div className="col-12 mx-auto mt-4">
+            <div className="col-4 row mx-auto">
+                <p className="h4 col-3 row">Login:</p>
+                <div className="col-6 row mx-auto">
                     <input 
                         type="text"
                         className="form-control-lg"
@@ -39,9 +39,9 @@ function LoginForm({loginUser, setUserName}) {
                     />
                  </div>
             </div>
-            <div className="col-12 row mx-auto">
-                <p className="h4">Password</p>
-                <div className="col-3 row mx-auto">
+            <div className="col-4 row mx-auto mt-1">
+                <p className="h4 col-3 row">Password:</p>
+                <div className="col-6 row mx-auto">
                     <input 
                         type="password" 
                         className="form-control-lg"
@@ -52,7 +52,12 @@ function LoginForm({loginUser, setUserName}) {
             { failLogin &&
               <label className="text-danger">You enter wrong login or password!</label>
             }
-            <button className="col-1 row btn-lg btn-primary mx-auto" onClick={tryLoginUser}>Login</button>
+            <div className="col-1 row mx-auto mt-2">
+                <button className="btn-lg btn-primary" onClick={tryLoginUser}>Login</button>
+            </div>
+            <div className="col-1 row mx-auto mt-1">
+                <Link className="btn-lg btn-primary" to="/register">Register</Link>
+            </div>
         </div>
     );
 }

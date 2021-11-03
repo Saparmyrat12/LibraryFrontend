@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 function Table({posts, deletePost}) {
     return(
-        <table className="table table-bordered">
+        <table className="table table-striped">
             <thead>
                 <tr>
                     <th className="text-center">Title</th>
                     <th className="text-center">Body</th>
+                    <th className="text-center">Delete</th>
                 </tr>
             </thead>
             <tbody>
