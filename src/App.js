@@ -28,6 +28,10 @@ function App({ history, userName, loginUser, users }) {
 
   return (
     <div className="App">
+      {
+        userName === "" && history.location.pathname !== "/login" && history.location.pathname !== "/register" &&
+        <Redirect to="/login" />
+      }
         { history.location.pathname !== "/login" && history.location.pathname !== "/register" &&
           <nav className="col-10 row navbar navbar-expand-lg navbar-light bg-light">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
