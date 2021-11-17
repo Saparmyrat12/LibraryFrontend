@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   Route,
@@ -14,17 +14,28 @@ import DataListFromSource from './Components/DataListFromSource';
 import LoginForm from './Components/LoginForm';
 import RegisterForm from './Components/RegisterForm';
 import userLogin from './store/actionCreators/userLogin';
+import updateUsers from './store/actionCreators/updateUsers';
+import api from './api';
 
-function App({ history, userName, loginUser, users }) {
+function App({ history, userName, loginUser, updateUsers, users }) {
 
   const tryLoginUser = (user) => {
     let userExists = false;
-    console.log(users);
     users.forEach(existingUser => {
       if(existingUser.login.localeCompare(user.login) === 0 && existingUser.password.localeCompare(user.password) === 0) userExists = true;
     });
     return userExists;
   }
+
+  const fetchUsers = async () => {
+    let {status, data} = await api.getAllUsers();
+    if(status === 200) updateUsers(data);
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="App">
@@ -69,7 +80,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    loginUser: (userName) => dispatch(userLogin(userName))
+    loginUser: (userName) => dispatch(userLogin(userName)),
+    updateUsers: (users) => dispatch(updateUsers(users))
   }
 }
 

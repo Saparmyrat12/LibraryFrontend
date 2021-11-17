@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import userRegister from '../store/actionCreators/userRegister';
 import { useForm } from 'react-hook-form';
+import api from '../api';
 
 function RegisterForm({ history, users, addUser }) {
 
@@ -22,13 +23,15 @@ function RegisterForm({ history, users, addUser }) {
         setEmail(e.target.value);
     }
 
-    const createUser = () => {
-        addUser({
+    const createUser = async () => {
+        let newUser = {
             id: users[users.length - 1].id + 1,
             login: login,
             password: password,
             email: email
-        });
+        };
+        addUser(newUser);
+        await api.addUser(newUser);
         history.push("/login");
     }
 
